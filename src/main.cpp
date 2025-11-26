@@ -47,34 +47,33 @@ struct Config {
 void setupWiFi();
 bool loadConfig();
 void setDefaultConfig();
-void log(const String& msg);
 
 void setup() {
     Serial.begin(SERIAL_BAUD_RATE);
-    log("\n\n=== ESP32 Dispenser Automatico ===");
+    Serial.println(F("\n\n=== ESP32 Dispenser Automatico ==="));
 
     // Create mutex for SPIFFS access
     spiffsMutex = xSemaphoreCreateMutex();
     if (spiffsMutex == NULL) {
-        log("Failed to create SPIFFS mutex!");
+        Serial.println(F("Failed to create SPIFFS mutex!"));
     }
 
     // Initialize SPIFFS
-    log("Initializing LittleFS...");
+    Serial.println(F("Initializing LittleFS..."));
     if (!spiffsManager.begin()) {
-        log("SPIFFS initialization failed!");
-        log("ERROR: Cannot continue without SPIFFS");
+        Serial.println(F("SPIFFS initialization failed!"));
+        Serial.println(F("ERROR: Cannot continue without SPIFFS"));
         while(1) {
             delay(1000);
-            Serial.println("System halted - SPIFFS required");
+            Serial.println(F("System halted - SPIFFS required"));
         }
     } else {
-        log("LittleFS initialized successfully");
+        Serial.println(F("LittleFS initialized successfully"));
     }
 
     // Load configuration from SPIFFS
     if (!loadConfig()) {
-        log("Failed to load config, using defaults");
+        Serial.println(F("Failed to load config, using defaults"));
         setDefaultConfig();
     }
 
@@ -85,7 +84,7 @@ void setup() {
     if (wifiConnectedToInternet) {
         ntpManager.begin();
     } else {
-        log("NTP Client skipped (no internet connection)");
+        Serial.println(F("NTP Client skipped (no internet connection)"));
     }
 
     // Initialize Stepper Motor
@@ -94,15 +93,15 @@ void setup() {
     // Setup web server
     webServerManager.begin(&spiffsManager, &ntpManager, &stepperManager, &spiffsMutex);
 
-    log("\n=== System Ready ===");
-    Serial.print("Web interface: http://");
+    Serial.println(F("\n=== System Ready ==="));
+    Serial.print(F("Web interface: http://"));
     if (config.apMode || !wifiConnectedToInternet) {
         Serial.print(WiFi.softAPIP());
     } else {
         Serial.print(WiFi.localIP());
     }
-    Serial.println("/");
-    log("====================\n");
+    Serial.println(F("/"));
+    Serial.println(F("====================\n"));
 }
 
 void loop() {
@@ -170,7 +169,7 @@ bool loadConfig() {
 
     File file = LittleFS.open("/config.json", FILE_READ);
     if (!file) {
-        log("Config file not found");
+        Serial.println(F("Config file not found"));
         return false;
     }
 
@@ -179,7 +178,7 @@ bool loadConfig() {
     file.close();
 
     if (error) {
-        log("Failed to parse config");
+        Serial.println(F("Failed to parse config"));
         return false;
     }
 
@@ -205,7 +204,12 @@ bool loadConfig() {
     // Load Stepper configuration
     stepperManager.loadConfig(doc);
 
-    log("Configuration loaded from SPIFFS");
+    // Update global WiFi variables
+    wifiSSID = config.ssid;
+    wifiPassword = config.password;
+    wifiAPMode = config.apMode;
+
+    Serial.println(F("Configuration loaded from SPIFFS"));
     return true;
 }
 
@@ -213,9 +217,4 @@ void setDefaultConfig() {
     strcpy(config.ssid, WIFI_SSID_DEFAULT);
     strcpy(config.password, WIFI_PASS_DEFAULT);
     config.apMode = WIFI_AP_MODE_DEFAULT;
-}
-
-void log(const String& msg) {
-    Serial.println(msg);
-    webServerManager.broadcastLog(msg);
 }
