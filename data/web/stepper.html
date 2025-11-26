@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor de Passo - ESP32 Dispenser</title>
+    <link rel="stylesheet" href="unified.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+
+        <main>
+            <section class="status-section">
+                <div class="status-card" id="stepper-status-card">
+                    <span class="status-icon">&#9881;</span>
+                    <div class="status-info">
+                        <h2>Motor de Passo</h2>
+                        <div class="status-value" id="stepper-position">Posicao: 0</div>
+                        <div class="uptime">Status: <span id="stepper-status">Verificando...</span></div>
+                    </div>
+                    <div class="refresh-btn" onclick="loadStepperStatus()">
+                        <span class="refresh-icon">&#128260;</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Controle Manual</h2>
+                <div class="card">
+                    <div class="form-group">
+                        <label>Movimento Rapido</label>
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="moveStepper(-360)">&#8634; -360</button>
+                            <button class="btn btn-primary" onclick="moveStepper(-90)">&#8634; -90</button>
+                            <button class="btn btn-primary" onclick="moveStepper(-45)">&#8634; -45</button>
+                            <button class="btn btn-danger" onclick="stopStepper()">&#9632; Parar</button>
+                            <button class="btn btn-primary" onclick="moveStepper(45)">+45 &#8635;</button>
+                            <button class="btn btn-primary" onclick="moveStepper(90)">+90 &#8635;</button>
+                            <button class="btn btn-primary" onclick="moveStepper(360)">+360 &#8635;</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="custom-degrees">Graus Personalizados</label>
+                        <div class="input-group">
+                            <input type="number" id="custom-degrees" value="90" min="-3600" max="3600">
+                            <button class="btn btn-success" onclick="moveCustomDegrees()">Mover</button>
+                        </div>
+                        <small>Valores positivos = sentido horario, negativos = anti-horario</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="custom-steps">Passos Personalizados</label>
+                        <div class="input-group">
+                            <input type="number" id="custom-steps" value="100" min="-10000" max="10000">
+                            <button class="btn btn-success" onclick="moveCustomSteps()">Mover</button>
+                        </div>
+                        <small>Cada passo = ~0.18 graus (2048 passos por volta)</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-warning" onclick="resetPosition()">&#128260; Zerar Posicao</button>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Configuracao do Motor</h2>
+                <div class="card">
+                    <div class="form-group">
+                        <label>Motor Habilitado</label>
+                        <div class="toggle-container">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="stepper-enabled" checked>
+                                <label for="stepper-enabled">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <span class="toggle-label" id="stepper-enabled-label">Habilitado</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stepper-speed">Velocidade (RPM)</label>
+                        <input type="range" id="stepper-speed" min="1" max="15" value="10">
+                        <div class="range-value"><span id="speed-value">10</span> RPM</div>
+                        <small>Velocidade de rotacao (1-15 RPM para motor 28BYJ-48)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stepper-steps-per-rev">Passos por Volta</label>
+                        <input type="number" id="stepper-steps-per-rev" value="2048" min="200" max="8000">
+                        <small>28BYJ-48 = 2048 passos, NEMA17 = 200 passos (sem microstepping)</small>
+                    </div>
+
+                    <h3>Configuracao de Pinos</h3>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="stepper-pin1">Pino IN1</label>
+                            <input type="number" id="stepper-pin1" value="25" min="0" max="39">
+                        </div>
+                        <div class="form-group half">
+                            <label for="stepper-pin2">Pino IN2</label>
+                            <input type="number" id="stepper-pin2" value="26" min="0" max="39">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="stepper-pin3">Pino IN3</label>
+                            <input type="number" id="stepper-pin3" value="27" min="0" max="39">
+                        </div>
+                        <div class="form-group half">
+                            <label for="stepper-pin4">Pino IN4</label>
+                            <input type="number" id="stepper-pin4" value="14" min="0" max="39">
+                        </div>
+                    </div>
+                    <small>Pinos GPIO do ESP32 conectados ao driver ULN2003 ou similar</small>
+
+                    <div class="form-actions">
+                        <button class="btn btn-success" onclick="saveStepperConfig()">&#128190; Salvar Configuracao</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="header.js"></script>
+    <script>loadHeader('&#9881; Motor de Passo');</script>
+    <script src="app.js"></script>
+    <script src="footer.js"></script>
+    <script src="stepper.js"></script>
+</body>
+</html>

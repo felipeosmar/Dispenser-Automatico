@@ -1,0 +1,27 @@
+{
+  "web": {
+    "username": "admin",
+    "password_hash": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+    "first_login": true
+  },
+  "wifi": {
+    "ssid": "Escalador",
+    "password": "Escalador@123",
+    "ap_mode": false
+  },
+  "ntp": {
+    "server": "pool.ntp.org",
+    "offset": -10800,
+    "interval": 3600000,
+    "enabled": true
+  },
+  "stepper": {
+    "pin1": 25,
+    "pin2": 26,
+    "pin3": 27,
+    "pin4": 14,
+    "speed": 10,
+    "steps_per_rev": 2048,
+    "enabled": true
+  }
+}

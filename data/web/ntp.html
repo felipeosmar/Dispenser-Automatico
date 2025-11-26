@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTP - ESP32 Dispenser</title>
+    <link rel="stylesheet" href="unified.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+
+        <main>
+            <section class="status-section">
+                <div class="status-card" id="ntp-status-card">
+                    <span class="status-icon">⏰</span>
+                    <div class="status-info">
+                        <h2>Hora do Sistema</h2>
+                        <div class="status-value" id="current-time">--:--:--</div>
+                        <div class="uptime">Status: <span id="ntp-sync-status">Verificando...</span></div>
+                    </div>
+                    <div class="refresh-btn" onclick="loadNTPTime()">
+                        <span class="refresh-icon">🔄</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Configuracao NTP</h2>
+                <div class="card">
+                    <div class="form-group">
+                        <label>NTP Habilitado</label>
+                        <div class="toggle-container">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="ntp-enabled" checked>
+                                <label for="ntp-enabled">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <span class="toggle-label" id="ntp-enabled-label">Habilitado</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ntp-server">Servidor NTP</label>
+                        <input type="text" id="ntp-server" placeholder="pool.ntp.org">
+                        <small>Servidor NTP para sincronizacao de hora</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ntp-offset">Fuso Horario (segundos)</label>
+                        <select id="ntp-offset">
+                            <option value="-43200">UTC-12:00</option>
+                            <option value="-39600">UTC-11:00</option>
+                            <option value="-36000">UTC-10:00</option>
+                            <option value="-32400">UTC-09:00</option>
+                            <option value="-28800">UTC-08:00</option>
+                            <option value="-25200">UTC-07:00</option>
+                            <option value="-21600">UTC-06:00</option>
+                            <option value="-18000">UTC-05:00</option>
+                            <option value="-14400">UTC-04:00</option>
+                            <option value="-10800" selected>UTC-03:00 (Brasilia)</option>
+                            <option value="-7200">UTC-02:00</option>
+                            <option value="-3600">UTC-01:00</option>
+                            <option value="0">UTC+00:00</option>
+                            <option value="3600">UTC+01:00</option>
+                            <option value="7200">UTC+02:00</option>
+                            <option value="10800">UTC+03:00</option>
+                            <option value="14400">UTC+04:00</option>
+                            <option value="18000">UTC+05:00</option>
+                            <option value="21600">UTC+06:00</option>
+                            <option value="25200">UTC+07:00</option>
+                            <option value="28800">UTC+08:00</option>
+                            <option value="32400">UTC+09:00</option>
+                            <option value="36000">UTC+10:00</option>
+                            <option value="39600">UTC+11:00</option>
+                            <option value="43200">UTC+12:00</option>
+                        </select>
+                        <small>Selecione o fuso horario da sua regiao</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ntp-interval">Intervalo de Sincronizacao (ms)</label>
+                        <input type="number" id="ntp-interval" value="3600000" min="60000" max="86400000">
+                        <small>Intervalo entre sincronizacoes (minimo 60 segundos)</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-success" onclick="saveNTPConfig()">💾 Salvar</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="header.js"></script>
+    <script>loadHeader('⏰ Configuracao NTP');</script>
+    <script src="app.js"></script>
+    <script src="footer.js"></script>
+    <script src="ntp.js"></script>
+</body>
+</html>

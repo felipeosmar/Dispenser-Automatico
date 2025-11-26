@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticacao - ESP32 Dispenser</title>
+    <link rel="stylesheet" href="unified.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+
+        <main>
+            <section class="status-section">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <span class="info-icon">👤</span>
+                        <div class="info-content">
+                            <span class="info-label">Usuario Atual</span>
+                            <span class="info-value" id="current-username">-</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🔐</span>
+                        <div class="info-content">
+                            <span class="info-label">Status</span>
+                            <span class="info-value" id="auth-status">-</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="first-login-warning" class="warning-section" style="display:none;">
+                <div class="warning-card">
+                    <span class="warning-icon">⚠️</span>
+                    <div class="warning-content">
+                        <h3>Primeiro Acesso</h3>
+                        <p>Por seguranca, e necessario alterar a senha padrao antes de continuar.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Alterar Credenciais</h2>
+                <div class="card">
+                    <div class="form-group">
+                        <label for="new-username">Novo Usuario</label>
+                        <input type="text" id="new-username" placeholder="Digite o novo usuario">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="current-password">Senha Atual</label>
+                        <div class="password-input-group">
+                            <input type="password" id="current-password" class="form-input" placeholder="Digite a senha atual">
+                            <button type="button" class="btn-toggle-password" onclick="togglePassword('current-password')">👁️</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-password">Nova Senha</label>
+                        <div class="password-input-group">
+                            <input type="password" id="new-password" class="form-input" placeholder="Digite a nova senha" oninput="checkPasswordStrength()">
+                            <button type="button" class="btn-toggle-password" onclick="togglePassword('new-password')">👁️</button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="password-strength-bar">
+                                <div class="strength-level" id="strength-level"></div>
+                            </div>
+                            <small id="strength-text">Digite uma senha</small>
+                        </div>
+                        <small>Minimo 8 caracteres, 1 maiuscula, 1 minuscula e 1 numero</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar Nova Senha</label>
+                        <div class="password-input-group">
+                            <input type="password" id="confirm-password" class="form-input" placeholder="Confirme a nova senha">
+                            <button type="button" class="btn-toggle-password" onclick="togglePassword('confirm-password')">👁️</button>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-success" onclick="changePassword()">💾 Salvar</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2>Requisitos de Senha</h2>
+                <div class="info-box">
+                    <p>A senha deve conter:</p>
+                    <ul>
+                        <li>Minimo de 8 caracteres</li>
+                        <li>Pelo menos 1 letra maiuscula (A-Z)</li>
+                        <li>Pelo menos 1 letra minuscula (a-z)</li>
+                        <li>Pelo menos 1 numero (0-9)</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="header.js"></script>
+    <script>loadHeader('🔐 Autenticacao');</script>
+    <script src="app.js"></script>
+    <script src="footer.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

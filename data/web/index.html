@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Dispenser Automatico</title>
+    <link rel="stylesheet" href="unified.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+
+        <main>
+            <section class="welcome-section">
+                <div class="welcome-card">
+                    <h2>Bem-vindo ao ESP32 Dispenser Automatico</h2>
+                    <p>Sistema de gerenciamento de arquivos via WiFi com atualizacoes OTA</p>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📶</div>
+                            <h3>Configuracao WiFi</h3>
+                            <p>Configure conexao com redes WiFi ou modo Access Point</p>
+                            <a href="/wifi" class="feature-link">Acessar</a>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">📁</div>
+                            <h3>Gerenciador de Arquivos</h3>
+                            <p>Upload, download, edicao e exclusao de arquivos</p>
+                            <a href="/filemanager" class="feature-link">Acessar</a>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>Atualizacao de Firmware</h3>
+                            <p>Atualize o firmware do ESP32 via WiFi (OTA)</p>
+                            <a href="/firmware" class="feature-link">Acessar</a>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Status do Sistema</h3>
+                            <p>Monitore o status do sistema, memoria e WiFi</p>
+                            <a href="/status" class="feature-link">Acessar</a>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">⏰</div>
+                            <h3>NTP - Hora do Sistema</h3>
+                            <p>Configure o servidor NTP e sincronize o relogio</p>
+                            <a href="/ntp" class="feature-link">Acessar</a>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">🔐</div>
+                            <h3>Autenticacao</h3>
+                            <p>Altere o usuario e senha de acesso ao sistema</p>
+                            <a href="/auth" class="feature-link">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="header.js"></script>
+    <script>
+        loadHeader('🏠 ESP32 Dispenser');
+    </script>
+    <script src="app.js"></script>
+    <script src="footer.js"></script>
+</body>
+</html>

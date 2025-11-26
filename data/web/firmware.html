@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firmware - ESP32 Dispenser</title>
+    <link rel="stylesheet" href="unified.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+
+        <main>
+            <section class="warning-section">
+                <div class="warning-card">
+                    <span class="warning-icon">⚠️</span>
+                    <div class="warning-content">
+                        <h3>Atencao!</h3>
+                        <p>A atualizacao de firmware e uma operacao critica. Certifique-se de:</p>
+                        <ul>
+                            <li>Usar um arquivo de firmware compativel (.bin)</li>
+                            <li>Nao desligar o dispositivo durante a atualizacao</li>
+                            <li>Manter uma conexao estavel com o dispositivo</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Atualizar Firmware (OTA)</h2>
+                <div class="upload-zone" id="firmware-upload-zone">
+                    <div class="upload-icon">🚀</div>
+                    <div class="upload-text">Arraste o arquivo .bin aqui ou clique para selecionar</div>
+                    <div class="upload-hint">Apenas arquivos de firmware ESP32 (.bin)</div>
+                    <input type="file" id="firmwareInput" accept=".bin" style="display:none">
+                </div>
+            </section>
+
+            <section class="progress-section" id="progress-section" style="display:none;">
+                <div class="progress-container">
+                    <h3>Progresso da Atualizacao</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%">
+                            <span class="progress-text" id="progress-text">0%</span>
+                        </div>
+                    </div>
+                    <div class="status-message" id="status-message">Iniciando...</div>
+                </div>
+            </section>
+
+            <section class="success-section" id="success-section" style="display:none;">
+                <div class="success-card">
+                    <span class="success-icon">✅</span>
+                    <div class="success-content">
+                        <h3>Atualizacao Concluida!</h3>
+                        <p>O firmware foi atualizado com sucesso.</p>
+                        <p class="reconnect-info">O dispositivo sera reiniciado automaticamente...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="header.js"></script>
+    <script>loadHeader('🚀 Atualizacao de Firmware');</script>
+    <script src="app.js"></script>
+    <script src="footer.js"></script>
+    <script src="firmware.js"></script>
+</body>
+</html>

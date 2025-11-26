@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status - ESP32 Dispenser</title>
+    <link rel="stylesheet" href="unified.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+
+        <main>
+            <section class="status-section">
+                <div class="status-card" id="system-health">
+                    <span class="status-icon">✅</span>
+                    <div class="status-info">
+                        <h2>Status do Sistema</h2>
+                        <div class="status-value" id="health-status">Carregando...</div>
+                        <div class="uptime">Uptime: <span id="uptime">-</span></div>
+                    </div>
+                    <div class="refresh-btn" onclick="loadStatus()">
+                        <span class="refresh-icon">🔄</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Memoria</h2>
+                <div class="cards-grid">
+                    <div class="metric-card">
+                        <h3>Heap Total</h3>
+                        <div class="metric-value" id="heap-total">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Heap Livre</h3>
+                        <div class="metric-value" id="heap-free">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Heap Usado</h3>
+                        <div class="metric-value" id="heap-used">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Uso de Memoria</h3>
+                        <div class="metric-value" id="heap-usage">-</div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>WiFi</h2>
+                <div class="cards-grid">
+                    <div class="metric-card">
+                        <h3>Status</h3>
+                        <div class="metric-value" id="wifi-status">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Rede (SSID)</h3>
+                        <div class="metric-value" id="wifi-ssid">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Endereco IP</h3>
+                        <div class="metric-value" id="wifi-ip">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Sinal</h3>
+                        <div class="metric-value" id="wifi-signal">-</div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Armazenamento (LittleFS)</h2>
+                <div class="cards-grid">
+                    <div class="metric-card">
+                        <h3>Total</h3>
+                        <div class="metric-value" id="spiffs-total">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Usado</h3>
+                        <div class="metric-value" id="spiffs-used">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Livre</h3>
+                        <div class="metric-value" id="spiffs-free">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Uso</h3>
+                        <div class="metric-value" id="spiffs-usage">-</div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>CPU</h2>
+                <div class="cards-grid">
+                    <div class="metric-card">
+                        <h3>Modelo</h3>
+                        <div class="metric-value" id="cpu-model">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Frequencia</h3>
+                        <div class="metric-value" id="cpu-freq">-</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="header.js"></script>
+    <script>loadHeader('📊 Status do Sistema');</script>
+    <script src="app.js"></script>
+    <script src="footer.js"></script>
+    <script src="status.js"></script>
+</body>
+</html>

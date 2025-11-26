@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Arquivos - ESP32 Dispenser</title>
+    <link rel="stylesheet" href="unified.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+
+        <div class="toolbar">
+            <button class="btn btn-primary" onclick="refreshFiles()">🔄 Atualizar</button>
+            <button class="btn btn-success" onclick="document.getElementById('fileInput').click()">📤 Upload</button>
+            <button class="btn btn-secondary" onclick="createNewFile()">📄 Novo Arquivo</button>
+            <button class="btn btn-secondary" onclick="createNewDir()">📁 Nova Pasta</button>
+            <input type="file" id="fileInput" multiple style="display:none" onchange="uploadFiles(this.files)">
+        </div>
+
+        <div class="path" id="current-path">/</div>
+
+        <div class="upload-zone" id="upload-zone">
+            <div class="upload-icon">📤</div>
+            <div class="upload-text">Arraste arquivos aqui ou clique para upload</div>
+            <div class="upload-hint">Arquivos serao enviados para o diretorio atual</div>
+        </div>
+
+        <main>
+            <ul class="file-list" id="file-list"></ul>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="edit-filename">Editar Arquivo</h2>
+                <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <textarea id="fileEditor"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeEditModal()">Cancelar</button>
+                <button class="btn btn-success" onclick="saveFile()">💾 Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="header.js"></script>
+    <script>loadHeader('📁 Gerenciador de Arquivos');</script>
+    <script src="app.js"></script>
+    <script src="footer.js"></script>
+    <script src="filemanager.js"></script>
+</body>
+</html>
